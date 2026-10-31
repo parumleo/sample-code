@@ -58,3 +58,24 @@ docker rm config-api-b
 ```
 
 Use port 5000 on your computer and `http://localhost:5000` as the Postman base URL. This is a learning demo, not production-ready.
+
+
+#Postman Testing
+
+##Unit Test Cases Template
+
+pm.test("Status code is 200", function() {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response contains required fields", function(){
+
+    const data = pm.response.json();
+    pm.expect(data.status).to.eql("running");
+    pm.expect(data).to.have.property("application");
+    pm.expect(data).to.have.property("environment");
+});
+
+pm.test("Response time is below 1000 ms", function() {
+    pm.expect(pm.response.responseTime).to.be.below(1000);
+});
